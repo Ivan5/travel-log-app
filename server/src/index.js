@@ -20,11 +20,7 @@ mongoose.connect(process.env.DATABASE_URL, {
 //middlewares
 app.use(morgan("common")); //use to describe the request
 app.use(helmet()); //use to remove and add some headers to the page to prevent attacs
-app.use(
-  cors({
-    origin: process.env.CORS_ORIGIN
-  })
-);
+app.use(cors());
 
 app.use(express.json());
 

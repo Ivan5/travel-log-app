@@ -7,3 +7,9 @@ body {
   width: 100vw;
   overflow: hidden;
 }
+
+.marker {
+  stroke: #f8c102;
+  height: 24px;
+  width: 24px;
+}
