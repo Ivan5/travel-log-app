@@ -2,6 +2,8 @@ import React, { useState, useEffect } from "react";
 import ReactMapGL, { Marker, Popup } from "react-map-gl";
 import { listLogEntries } from "./API";
 
+import LogEntryForm from "./LogEntryForm";
+
 const App = () => {
   const [logEntries, setLogEntries] = useState([]);
   const [showPopup, setShowPopup] = useState({});
@@ -45,13 +47,7 @@ const App = () => {
     >
       {logEntries.map(entry => (
         <React.Fragment key={entry._id}>
-          <Marker
-            latitude={entry.latitude}
-            longitude={entry.longitude}
-
-            //offsetLeft={-12}
-            //offsetTop={-24}
-          >
+          <Marker latitude={entry.latitude} longitude={entry.longitude}>
             <div
               onClick={() =>
                 setShowPopup({
@@ -110,9 +106,6 @@ const App = () => {
           <Marker
             latitude={addEntryLocation.latitude}
             longitude={addEntryLocation.longitude}
-
-            //offsetLeft={-12}
-            //offsetTop={-24}
           >
             <div>
               <svg
@@ -149,7 +142,7 @@ const App = () => {
             anchor="top"
           >
             <div className="popup">
-              <h3>Add your new log entry here</h3>
+              <LogEntryForm />
             </div>
           </Popup>
         </>
