@@ -16,15 +16,12 @@ const App = () => {
     zoom: 3
   });
 
+  const getEntries = async () => {
+    const logEntries = await listLogEntries();
+    setLogEntries(logEntries);
+  };
   useEffect(() => {
-    (async () => {
-      const logEntries = await listLogEntries();
-      setLogEntries(logEntries);
-    })();
-
-    return () => {
-      //clean up things
-    };
+    getEntries();
   }, []);
 
   const showAddMarkerPopup = event => {
@@ -96,6 +93,9 @@ const App = () => {
                 <small>
                   Visited on: {new Date(entry.visitDate).toLocaleDateString()}
                 </small>
+                {entry.image ? (
+                  <img src={entry.image} alt={entry.title} />
+                ) : null}
               </div>
             </Popup>
           ) : null}
@@ -142,7 +142,13 @@ const App = () => {
             anchor="top"
           >
             <div className="popup">
-              <LogEntryForm />
+              <LogEntryForm
+                onClose={() => {
+                  setAddEntryLocation(null);
+                  getEntries();
+                }}
+                location={addEntryLocation}
+              />
             </div>
           </Popup>
         </>
